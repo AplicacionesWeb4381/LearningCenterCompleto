@@ -76,6 +76,25 @@ public class TutorialsController(
         return CreatedAtAction(nameof(GetTutorialById), new { tutorialId = tutorial.Id }, tutorialResource);
     }
 
+    [HttpDelete]
+    [SwaggerOperation(
+       Summary = "Delete a Tutorial",
+       Description = "Detele a Tutorial",
+       OperationId = "DeleteTutorial")]
+    [SwaggerResponse(StatusCodes.Status201Created, "The Tutorial was deleted", typeof(CategoryResource))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "The Tutorial could not be Deleted")]
+    public async Task<IActionResult> DeleteTutorial([FromBody] DeleteTutorialResource resource)
+    {
+        var deleteTutorialCommand = DeleteTutorialCommandFromResourceAssembler.ToCommandFromResource(resource);
+        var Tutorial = await tutorialCommandService.Handle(deleteTutorialCommand);
+        if (Tutorial is null) return NotFound();
+        var TutorialResource = TutorialResourceFromEntityAssembler.ToResourceFromEntity(Tutorial);
+        return Ok(TutorialResource);
+    }
+
+
+
+
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all tutorials",

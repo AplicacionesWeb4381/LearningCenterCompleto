@@ -112,6 +112,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 //publishing
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ITutorialRepository, TutorialRepository>();
+builder.Services.AddScoped<IAssetsRepository, AssetsRepository>();
 builder.Services.AddScoped<ICategoryCommandService, CategoryCommandService>();
 builder.Services.AddScoped<ICategoryQueryService, CategoryQueryService>();
 builder.Services.AddScoped<ITutorialCommandService, TutorialCommandService>();

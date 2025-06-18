@@ -7,6 +7,7 @@
 
         public EmailAddress(string email) { 
             this.email = email;
+            this.Address = email;
         }
         public EmailAddress() {
             email = "";

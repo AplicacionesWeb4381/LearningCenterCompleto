@@ -9,13 +9,14 @@
         public string Country;
         public string FullAddress;
         public string Number;
-        public StreetAddress(string street, string city, string state, string postalCode, string country)
+        public StreetAddress(string street, string city, string state, string postalCode, string country, string number)
         {
             this.Street = street;
             this.City = city;
             this.State = state;
             this.PostalCode = postalCode;
             this.Country = country;
+            this.Number = number;
         }
         public StreetAddress()
         {  this.Street = string.Empty;

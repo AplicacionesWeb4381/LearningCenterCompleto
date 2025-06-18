@@ -9,6 +9,7 @@ namespace LearningCenterPlatform.Publishing.Application.Internal.CommandServices
 public class TutorialCommandService(
     ITutorialRepository tutorialRepository,
     ICategoryRepository categoryRepository,
+    IAssetsRepository assetsRepository,
     IUnitOfWork unitOfWork)
     : ITutorialCommandService
 {
@@ -33,6 +34,24 @@ public class TutorialCommandService(
         await tutorialRepository.AddAsync(tutorial);
         await unitOfWork.CompleteAsync();
         tutorial.Category = category;
+        return tutorial;
+    }
+    public async Task<Tutorial?> Handle(DeleteTutorialCommand command)
+    {
+       var  assets =  await assetsRepository.FindByAssetsIdAsync(command.IdTutorial);
+
+        foreach (var asset in assets)
+        {
+            assetsRepository.Remove(asset);
+        }
+
+
+        var tutorial = await tutorialRepository.FindByIdAsync(command.IdTutorial);
+        if (tutorial is null) throw new Exception("Tutorial not found");
+        tutorialRepository.Remove(tutorial);
+
+
+        await unitOfWork.CompleteAsync();
         return tutorial;
     }
 }
