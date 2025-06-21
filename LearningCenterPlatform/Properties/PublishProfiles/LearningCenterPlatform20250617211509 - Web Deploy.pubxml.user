@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
+edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <History>False|2025-06-21T01:31:58.2566838Z||;False|2025-06-20T20:27:43.5976747-05:00||;False|2025-06-20T20:21:31.3439894-05:00||;False|2025-06-20T20:15:45.1876398-05:00||;False|2025-06-17T21:45:48.9550428-05:00||;False|2025-06-17T21:43:26.1076441-05:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Server=tcp:learningcenterplatformdbserver.database.windows.net%3bAuthentication=Active Directory Default%3bDatabase=LearningCenterPlatform_db%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

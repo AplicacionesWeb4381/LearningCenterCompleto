@@ -3,6 +3,8 @@ using LearningCenterPlatform.Publishing.Domain.Model.Entities;
 using LearningCenterPlatform.Publishing.Domain.Repositories;
 using LearningCenterPlatform.Publishing.Domain.Services;
 using LearningCenterPlatform.Shared.Domain.Repositories;
+using Cortex.Mediator;
+using LearningCenterPlatform.Publishing.Domain.Model.Events;
 
 namespace LearningCenterPlatform.Publishing.Application.Internal.CommandServices;
 
@@ -15,7 +17,7 @@ namespace LearningCenterPlatform.Publishing.Application.Internal.CommandServices
 /// <param name="unitOfWork">
 ///     The <see cref="IUnitOfWork" /> to use.
 /// </param>
-public class CategoryCommandService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+public class CategoryCommandService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IMediator domainEventPublisher)
     : ICategoryCommandService
 {
     /// <inheritdoc />
@@ -24,7 +26,11 @@ public class CategoryCommandService(ICategoryRepository categoryRepository, IUni
         var category = new Category(command);
         await categoryRepository.AddAsync(category);
         await unitOfWork.CompleteAsync();
+
+        await domainEventPublisher.PublishAsync(new CategoryCreatedEvent(category.Name));
         return category;
+
+
     }
     public async Task<Category?> Handle(UpdateCategoryCommand command)
     {
